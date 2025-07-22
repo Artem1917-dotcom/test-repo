@@ -1,5 +1,5 @@
 def print_number(num):
-    print(num, end='')
+    print(num)
 
-for digit in [8, 8, 0, 0, 5, 5, 5, 3, 5, 3, 5]:
-    print_number(digit)
+for _ in range(11):
+    print_number(88005553535)
