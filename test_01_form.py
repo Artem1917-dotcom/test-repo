@@ -4,7 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 def test_form_validation():
-    driver = webdriver.Edge()  # или Safari()
+    driver = webdriver.Edge()
     driver.get("https://bonigarcia.dev/selenium-webdriver-java/data-types.html")
     
     # Заполняем форму
@@ -22,18 +22,28 @@ def test_form_validation():
     # Нажимаем Submit
     driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
     
-    # Проверяем, что поле Zip code подсвечено красным
-    zip_code_field = driver.find_element(By.NAME, "zip-code")
+    # Ждем пока форма обработается
+    wait = WebDriverWait(driver, 10)
+    
+    # Проверяем, что поле Zip code подсвечено красным (используем ID)
+    zip_code_field = wait.until(
+        EC.visibility_of_element_located((By.ID, "zip-code"))
+    )
     assert "alert-danger" in zip_code_field.get_attribute("class")
     
-    # Проверяем, что остальные поля подсвечены зеленым
+    # Проверяем, что остальные поля подсвечены зеленым (используем ID)
     fields_to_check = [
         "first-name", "last-name", "address", "e-mail", "phone",
         "city", "country", "job-position", "company"
     ]
     
-    for field_name in fields_to_check:
-        field = driver.find_element(By.NAME, field_name)
+    for field_id in fields_to_check:
+        field = wait.until(
+            EC.visibility_of_element_located((By.ID, field_id))
+        )
         assert "alert-success" in field.get_attribute("class")
     
     driver.quit()
+
+if __name__ == "__main__":
+    test_form_validation()
