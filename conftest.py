@@ -1,40 +1,35 @@
 import pytest
-import requests
-from config import BASE_URL, HEADERS
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from config import DATABASE_URL
+from models import Base, Student, Subject
+
+@pytest.fixture(scope="function")
+def db_session():
+    """Фикстура для создания сессии БД"""
+    engine = create_engine(DATABASE_URL)
+    Base.metadata.create_all(engine)  # Создаем таблицы
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    
+    yield session  # Передаем сессию тесту
+    
+    # Cleanup - откатываем изменения и закрываем сессию
+    session.rollback()
+    session.close()
 
 @pytest.fixture
-def api_headers():
-    return HEADERS.copy()
-
-@pytest.fixture
-def base_url():
-    return BASE_URL
-
-@pytest.fixture
-def test_project_data():
+def test_student_data():
+    """Тестовые данные для студента"""
     return {
-        "title": "Test Project API",
-        "description": "Test project created by API",
-        "icon": "📋"
+        "name": "Иван Иванов",
+        "email": "ivan@test.ru"
     }
 
 @pytest.fixture
-def created_project_id(api_headers, base_url, test_project_data):
-    """Фикстура создает проект и возвращает его ID для тестов"""
-    response = requests.post(
-        f"{base_url}/projects",
-        headers=api_headers,
-        json=test_project_data
-    )
-    
-    if response.status_code == 201:
-        project_id = response.json()["id"]
-        yield project_id
-        
-        # Cleanup - удаляем проект после теста
-        requests.delete(
-            f"{base_url}/projects/{project_id}",
-            headers=api_headers
-        )
-    else:
-        pytest.skip(f"Failed to create test project: {response.status_code}")
+def test_subject_data():
+    """Тестовые данные для предмета"""
+    return {
+        "name": "Математика",
+        "description": "Высшая математика и анализ"
+    }
