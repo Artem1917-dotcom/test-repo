@@ -38,7 +38,8 @@ class CheckoutPage:
         """
         self.driver.find_element(*self.first_name_input).send_keys(first_name)
         self.driver.find_element(*self.last_name_input).send_keys(last_name)
-        self.driver.find_element(*self.postal_code_input).send_keys(postal_code)
+        self.driver.find_element(
+            *self.postal_code_input).send_keys(postal_code)
         self.driver.find_element(*self.continue_button).click()
         return self
 
