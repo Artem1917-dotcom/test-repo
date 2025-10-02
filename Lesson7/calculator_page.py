@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 class CalculatorPage:
     def __init__(self, driver):
         self.driver = driver
@@ -20,7 +21,8 @@ class CalculatorPage:
         return self
 
     def click_button(self, button_text):
-        button = self.driver.find_element(By.XPATH, f"//span[text()='{button_text}']")
+        button = self.driver.find_element(
+            By.XPATH, f"//span[text()='{button_text}']")
         button.click()
         return self
 

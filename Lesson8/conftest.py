@@ -2,13 +2,16 @@ import pytest
 import requests
 from Lesson8.config import BASE_URL, HEADERS
 
+
 @pytest.fixture
 def api_headers():
     return HEADERS.copy()
 
+
 @pytest.fixture
 def base_url():
     return BASE_URL
+
 
 @pytest.fixture
 def test_project_data():
@@ -18,6 +21,7 @@ def test_project_data():
         "icon": "📋"
     }
 
+
 @pytest.fixture
 def created_project_id(api_headers, base_url, test_project_data):
     """Фикстура создает проект и возвращает его ID для тестов"""
@@ -26,11 +30,11 @@ def created_project_id(api_headers, base_url, test_project_data):
         headers=api_headers,
         json=test_project_data
     )
-    
+
     if response.status_code == 201:
         project_id = response.json()["id"]
         yield project_id
-        
+
         # Cleanup - удаляем проект после теста
         requests.delete(
             f"{base_url}/projects/{project_id}",

@@ -1,13 +1,14 @@
 import requests
 from Lesson8.config import BASE_URL, HEADERS
 
+
 class ProjectsClient:
     """Client для работы с API проектов Yougile"""
-    
+
     def __init__(self, base_url=BASE_URL, headers=HEADERS):
         self.base_url = base_url
         self.headers = headers
-    
+
     def create_project(self, project_data):
         """
         POST /api-v2/projects - Создание проекта
@@ -19,7 +20,7 @@ class ProjectsClient:
             json=project_data
         )
         return response
-    
+
     def get_project(self, project_id):
         """
         GET /api-v2/projects/{id} - Получение проекта по ID
@@ -29,7 +30,7 @@ class ProjectsClient:
             headers=self.headers
         )
         return response
-    
+
     def update_project(self, project_id, update_data):
         """
         PUT /api-v2/projects/{id} - Обновление проекта
@@ -40,7 +41,7 @@ class ProjectsClient:
             json=update_data
         )
         return response
-    
+
     def delete_project(self, project_id):
         """
         DELETE /api-v2/projects/{id} - Удаление проекта

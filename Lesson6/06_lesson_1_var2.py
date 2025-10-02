@@ -13,7 +13,8 @@ blue_button.click()
 # Ждем, пока появится элемент с конкретным текстом
 wait = WebDriverWait(driver, 15)
 success_message = wait.until(
-    EC.visibility_of_element_located((By.XPATH, "//p[contains(@class, 'bg-success') and contains(text(), 'Data loaded')]"))
+    EC.visibility_of_element_located(
+        (By.XPATH, "//p[contains(@class, 'bg-success') and contains(text(), 'Data loaded')]"))
 )
 
 # Получаем и выводим текст

@@ -1,7 +1,7 @@
+from card.py import Card
+from user.py import User
 import sys
 sys.path.insert(0, 'C:\\Users\\admin\\Desktop\\Python')
-from user.py import User
-from card.py import Card
 
 alex = User("Alex")
 karl = User("Karl")
@@ -11,5 +11,3 @@ david = User("David")
 
 alex.sayName()
 alex.sayAge()
-
-

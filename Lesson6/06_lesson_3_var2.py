@@ -14,7 +14,8 @@ wait.until(
 
 # Ждем, пока появится хотя бы 4 картинки (включая третью)
 wait.until(
-    lambda driver: len(driver.find_elements(By.CSS_SELECTOR, "#image-container img")) >= 4
+    lambda driver: len(driver.find_elements(
+        By.CSS_SELECTOR, "#image-container img")) >= 4
 )
 
 # Получаем третью картинку

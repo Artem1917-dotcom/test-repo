@@ -1,5 +1,6 @@
 from Lesson3.Address import Address
 
+
 class Mailing:
     def __init__(self, to_address: Address, from_address: Address, cost: float, track: str):
         if not isinstance(to_address, Address):
@@ -10,7 +11,7 @@ class Mailing:
             raise TypeError("cost должен быть числом")
         if not isinstance(track, str):
             raise TypeError("track должен быть строкой")
-            
+
         self.to_address = to_address
         self.from_address = from_address
         self.cost = cost
